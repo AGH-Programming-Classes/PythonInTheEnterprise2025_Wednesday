@@ -1,0 +1,34 @@
+# -------------------------------------
+# pyproject.toml
+# -------------------------------------
+# The modern, standardized project configuration file.
+# Used by Python build systems, packaging tools, and linters.
+#
+# It defines:
+#   - metadata (name, version, authors)
+#   - runtime dependencies
+#   - build system requirements
+#
+# Differences:
+#   * dependencies here specify what your project
+#     requires to RUN (broad versions)
+#   * requirements.txt specifies exact versions
+#     to REPRODUCE a working environment
+# -------------------------------------
+
+[build-system]
+# Required build tools for installing the project
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "hello_world_project"
+version = "0.1.0"
+description = "Hello World project."
+authors = [{name = "Your Name"}]
+readme = "README.md"
+requires-python = ">=3.9"
+
+# Runtime dependencies — packages your project needs to run.
+# For example:
+# dependencies = ["requests>=2.32.0", "pandas>=2.0.0"]
+dependencies = []

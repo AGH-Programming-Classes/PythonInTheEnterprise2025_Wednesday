@@ -1,0 +1,20 @@
+# -------------------------------------
+# requirements.txt
+# -------------------------------------
+# This file lists exact versions of packages
+# needed to reproduce a working environment.
+# Used for development, CI/CD, or deployment.
+#
+# Run: pip install -r requirements.txt
+#
+# Example:
+# pandas==2.2.3
+# numpy==1.26.4
+#
+# NOTE:
+# - This file is optional if your project uses only
+#   the Python standard library.
+# - `requirements.txt` and `pyproject.toml` serve
+#   different purposes:
+#     * requirements.txt  → reproducibility (exact versions)
+#     * pyproject.toml → packaging & runtime dependencies

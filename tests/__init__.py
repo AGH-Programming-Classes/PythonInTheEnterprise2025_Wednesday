@@ -1,0 +1,1 @@
+''' Included for compatibility. Not needed with modern python version and its automated test discovery. '''

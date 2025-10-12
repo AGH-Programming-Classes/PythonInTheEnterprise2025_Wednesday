@@ -1,0 +1,23 @@
+# -------------------------------------
+# Git Ignore File
+# -------------------------------------
+# Specifies which files Git should not track.
+# Keeps your repository clean of build artifacts,
+# caches, and developer-specific settings.
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.log
+
+# Virtual environments (local only)
+venv/
+.env/
+
+# IDE/project configuration files
+.vscode/
+.idea/
+
+# OS-specific hidden files
+.DS_Store
+Thumbs.db
