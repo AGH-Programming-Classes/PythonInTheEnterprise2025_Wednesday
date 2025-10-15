@@ -8,4 +8,4 @@ def calculator_main():
          elif calculation == 1:
              continue
          else:
-             break
+             running = False
