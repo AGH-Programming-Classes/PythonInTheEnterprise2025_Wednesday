@@ -10,6 +10,18 @@ def main(stdscr):
     cursor_step_x = 6
     cursor_step_y = 4
 
+    game_coords = {
+        (2,1) : (0,0),
+        (2,5) : (0,1),
+        (2,9) : (0,2),
+        (8,1) : (1,0),
+        (8,5) : (1,1),
+        (8,9) : (1,2),
+        (14,1) : (2,0),
+        (14,5) : (2,1),
+        (14,9) : (2,2)
+    }
+
     while running:
         begin_x = 0; begin_y = 0
         height = 50; width = 50
@@ -29,7 +41,9 @@ def main(stdscr):
         win.addstr("     #     #     \n")
 
         char = stdscr.getch()
-        if char == curses.KEY_RIGHT:
+        if char == 113:
+            break
+        elif char == curses.KEY_RIGHT:
             if cursor_x + cursor_step_x < 15:
                 cursor_x += cursor_step_x
         elif char == curses.KEY_LEFT: 
