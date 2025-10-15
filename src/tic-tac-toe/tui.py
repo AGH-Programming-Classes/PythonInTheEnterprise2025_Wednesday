@@ -1,14 +1,28 @@
-from curses import wrapper
+import curses
 
 def main(stdscr):
     stdscr.clear()
 
-    for i in range(0, 9):
-        v = i-10
-        stdscr.addstr(i, 0, '10 divided by {} is {}'.format(v, 10/v))
+    running = True
+    while running:
+        begin_x = 0; begin_y = 0
+        height = 50; width = 50
+        win = curses.newwin(height, width, begin_y, begin_x)
 
-        stdscr.refresh()
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+        win.addstr("#################\n")
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+        win.addstr("#################\n")
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+        win.addstr("     #     #     \n")
+
+        win.refresh()
         stdscr.getkey()
 
 if __name__ == "__main__":
-    wrapper(main)
+    curses.wrapper(main)
