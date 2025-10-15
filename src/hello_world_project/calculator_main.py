@@ -1,4 +1,5 @@
 def calculator_main():
+    ''' This function is responsible for the main loop of the program '''
     running = True
     calculation = -1
     while running:
