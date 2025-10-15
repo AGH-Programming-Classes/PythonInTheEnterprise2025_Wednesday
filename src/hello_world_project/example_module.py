@@ -16,3 +16,7 @@ Multiplication operator
 '''
 def multiply(a,b):
     return a*b
+
+
+def divison(a : int ,b : int):
+    return a/b
