@@ -4,8 +4,8 @@ def calculator_main():
     while running:
          calculation = input("Choose calculation type 0 for addition 1 for subtraction other for exit")
          if calculation == 0:
-             continue
+            continue
          elif calculation == 1:
-             continue
+            continue
          else:
-             running = False
+            running = False

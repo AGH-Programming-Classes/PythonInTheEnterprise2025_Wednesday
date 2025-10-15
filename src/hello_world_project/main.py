@@ -1,5 +1,5 @@
-from hello_world_project.utils import greet_user
-from src.hello_world_project.calculator_main import calculator_main
+from utils import greet_user
+from calculator_main import calculator_main
 
 def main():
     print("=== Calculator Project ===")
