@@ -1,2 +1,0 @@
-print("betkowski debil")
-print("wyzywaja mnie")

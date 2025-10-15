@@ -21,10 +21,10 @@
 requires = ["setuptools", "wheel"]
 
 [project]
-name = "hello_world_project"
+name = "tic_tac_toe"
 version = "0.1.0"
-description = "Hello World project."
-authors = [{name = "Your Name"}]
+description = "Tic Tac Toe project."
+authors = [{name = "Filip Bętkowski, Rafał Wybraniec"}]
 readme = "README.md"
 requires-python = ">=3.9"
 
