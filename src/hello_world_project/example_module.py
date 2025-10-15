@@ -11,3 +11,8 @@ def substract() -> int:
 
 print(substract())
 
+'''
+Multiplication operator
+'''
+def multiply(a,b):
+    return a*b
