@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/hello_world_project/__init__.py
+src/hello_world_project/example_module.py
+src/hello_world_project/main.py
+src/hello_world_project/utils.py
+src/hello_world_project.egg-info/PKG-INFO
+src/hello_world_project.egg-info/SOURCES.txt
+src/hello_world_project.egg-info/dependency_links.txt
+src/hello_world_project.egg-info/top_level.txt
+tests/test_example_module.py

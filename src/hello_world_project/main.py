@@ -1,5 +1,8 @@
 from hello_world_project.utils import greet_user
 from hello_world_project.example_module import add_numbers
+import requests
+import tkinter as tk
+from tkinter import messagebox
 
 def main():
     print("=== Hello World Project ===")
