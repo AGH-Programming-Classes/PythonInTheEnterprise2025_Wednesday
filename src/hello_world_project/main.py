@@ -1,4 +1,5 @@
 import requests
+import tkinter
 
 def get_coordinates(city_name):
     url = "https://nominatim.openstreetmap.org/search" #uzywamy darmowego geokodera co zamienia nazwe miasta na jego koordynaty
@@ -47,11 +48,34 @@ def weather(city_name):
 
 
 def main():
-    print("=== Weather ===")
 
-    city = input("Enter city: ")
-    temperature = weather(city)
-    print(temperature)
+    # Tworzy główne okno aplikacji
+    root = tkinter.Tk()
+
+    # Dodaje tytuł oraz wymiary głównego okna (szerokość, wysokość)
+    root.title("=== Weather ===")
+    root.geometry("300x200")
+
+    # Tworzymy widget label podając nadrzędny element oraz zawartość
+    label = tkinter.Label(root, text="Enter city: ")
+    # Dodaje element do okna
+    label.pack(pady=10)
+
+    entry = tkinter.Entry(root)
+    entry.pack(pady=10)
+
+
+    button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{weather(entry.get())}"))
+    button.pack(pady=10)
+
+    label_result = tkinter.Label(root)
+    label_result.pack(pady=10)
+
+    button_quit = tkinter.Button(root, text="Close", command=root.quit)
+    button_quit.pack()
+
+    # Uruchamia pętlę zdarzeń
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
