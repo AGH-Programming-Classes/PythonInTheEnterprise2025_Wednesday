@@ -1,5 +1,9 @@
 import time
 class TimerDecorator:
+    '''
+    TimerDecorator class used to implement decorator dessign patern on Calculator class.
+    It gives us information on how much time it takes to executed functions.
+    '''
     def __init__(self, func):
         self.func = func
     def __call__(self, *args, **kwargs):
@@ -12,8 +16,11 @@ class TimerDecorator:
 
 
 class Singleton(type):
+    '''
+    Singleton class used to prevent more than one object.
+    '''
     _instances = {}
-
+    
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
             instance = super().__call__(*args, **kwargs)
