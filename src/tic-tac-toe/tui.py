@@ -41,7 +41,7 @@ def main(stdscr):
         win.addstr("     #     #     \n")
 
         char = stdscr.getch()
-        if char == 113:
+        if char == ord("q"):
             break
         elif char == curses.KEY_RIGHT:
             if cursor_x + cursor_step_x < 15:
