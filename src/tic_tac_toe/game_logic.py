@@ -3,6 +3,8 @@ class Game:
     def __init__(self, b):
         self.board = b
     
+    def get_board(self):
+        return self.board
     #print(board)
     def is_won(self, c):
         a = board
