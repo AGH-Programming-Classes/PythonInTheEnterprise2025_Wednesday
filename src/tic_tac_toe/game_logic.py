@@ -24,28 +24,26 @@ class Game:
         while not self.is_won("X") or not self.is_won("O"):
             i, j = map(int, input("Insert an X: ").split())
             if self.board[i][j] != " ":
-                print("spot taken")
+                # print("spot taken")
                 continue
             else:
                 self.board[i][j] = 'X'
-            for row in self.board:
-                print(" ".join(row))
+            
             if self.is_won("X"):
-                print("game over, X won!")
+                # print("game over, X won!")
                 sys.exit(1)
             istaken = True
             while istaken:
                 k, l = map(int, input("Insert an O: ").split())
                 if self.board[k][l] != " ":
                     istaken = True
-                    print("spot taken")
+                    # print("spot taken")
                 else:
                     istaken = False
                     self.board[k][l] = 'O'
 
-            for row in self.board:
-                print(" ".join(row))
+            
             if self.is_won("O"):
-                print("game over, O won!")
+                # print("game over, O won!")
                 sys.exit(1)
 
