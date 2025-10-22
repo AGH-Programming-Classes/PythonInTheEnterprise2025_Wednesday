@@ -13,11 +13,13 @@ class SimpleCalculator:
             return a / b
         else:
             raise Exception
-    
-
+        
 class ScientificCalc(SimpleCalculator):
     def power_numbers(self, base, exp):
         return base ** exp
     def sqr_number(self, base):
         return base ** 1/2
 
+def FactoryCalculator(type: str):
+    factory = {"Simple": SimpleCalculator, "Science":ScientificCalc }
+    return factory[type]()
