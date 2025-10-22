@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/tic_tac_toe/__init__.py
+src/tic_tac_toe/game_logic.py
+src/tic_tac_toe/main.py
+src/tic_tac_toe/user_interface.py
+src/tic_tac_toe/utils.py
+src/tic_tac_toe.egg-info/PKG-INFO
+src/tic_tac_toe.egg-info/SOURCES.txt
+src/tic_tac_toe.egg-info/dependency_links.txt
+src/tic_tac_toe.egg-info/top_level.txt

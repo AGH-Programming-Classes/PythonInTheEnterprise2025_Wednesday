@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: tic_tac_toe
+Version: 0.1.0
+Summary: Tic Tac Toe project.
+Author: Filip Bętkowski, Rafał Wybraniec
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# Tic-Tac-Toe
+
+(desc)
+
+# Authors
+
+Filip Bętkowski, Rafał Wybraniec
