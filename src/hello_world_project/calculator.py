@@ -7,17 +7,19 @@ from example_module import log_calculation
 class Observer:
   def __init__(self):
     self.subscribers = []
+    self.counter = 0
   def subscribe(self, fn):
     if fn not in self.subscribers:
       self.subscribers.append(fn)
   def unsubscribe(self, fn):
     self.subscribers.remove(fn)
-  def emit(self, event):
+  def emit(self, event, msg):
     for fn in self.subscribers:
-      fn(event)
+      fn.update(self, msg)
   
-  def update(self, data):
-    return
+  def update(self, msg):
+    self.counter += 1
+    print("clicked: " + msg)
   
 
 class Calculator:
@@ -37,11 +39,11 @@ class Calculator:
     self.observers = []
     
   def add_obs(self, obs):
-    self.obeservers.append(obs)
+    self.observers.append(obs)
   
-  def send(self):
+  def send(self, msg):
     for o in self.observers:
-      o.update()
+      o.update(msg)
   
   def create_widgets(self):
     input_frame = tk.Frame(self.master, bd=0, bg="#2c2c2c")
@@ -106,8 +108,9 @@ class Calculator:
     self.master.bind("<Delete>", lambda event=None: self.clear_all())
   
   def keyboard_click(self, event):
-    if event.char in "0123456789+-*/()."
-    self.button_click(event.char)
+    if event.char in "0123456789+-*/().":
+      self.button_click(event.char)
+      self.send("keyboard")
     
   def button_click(self, item):
     if not self.expression and is_operator(item) and item != '-':
@@ -117,6 +120,7 @@ class Calculator:
     self.expression += str(item)
     self.input_text.set(self.expression)
     self.input_field.xview_moveto(1)
+    self.send("button")
 
   def sqrt_operation(self):
     try:
