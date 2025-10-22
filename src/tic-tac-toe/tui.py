@@ -9,6 +9,10 @@ def main(stdscr):
     cursor_x = 2
     cursor_step_x = 6
     cursor_step_y = 4
+    cursor_max_x = 15
+    cursor_min_x= 0
+    cursor_max_y = 10
+    cursor_min_y = 0
 
     game_coords = {
         (2,1) : (0,0),
