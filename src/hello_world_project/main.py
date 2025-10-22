@@ -2,7 +2,7 @@ import requests
 import tkinter
 
 
-
+# Facade
 class WeatherService:
 
     def get_weather(self, city_name):
@@ -50,37 +50,50 @@ class WeatherService:
         
         except requests.RequestException:
             return f"Blad polaczenia"
+    
+# Facade and singleton  
+class UI(object):
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(UI, cls).__new__(cls)
+        return cls.instance
+    def create(self, weatherService):
+        # Tworzy główne okno aplikacji
+        root = tkinter.Tk()
+
+        # Dodaje tytuł oraz wymiary głównego okna (szerokość, wysokość)
+        root.title("=== Weather ===")
+        root.geometry("300x200")
+
+        # Tworzymy widget label podając nadrzędny element oraz zawartość
+        label = tkinter.Label(root, text="Enter city: ")
+        # Dodaje element do okna
+        label.pack(pady=10)
+
+        entry = tkinter.Entry(root)
+        entry.pack(pady=10)
+
+
+        button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{weatherService.get_weather(entry.get())}"))
+        button.pack(pady=10)
+
+        label_result = tkinter.Label(root)
+        label_result.pack(pady=10)
+
+        button_quit = tkinter.Button(root, text="Close", command=root.quit)
+        button_quit.pack()
+
+        # Uruchamia pętlę zdarzeń
+        root.mainloop()
+
+
 
 
 def main():
     service = WeatherService()
-    # Tworzy główne okno aplikacji
-    root = tkinter.Tk()
 
-    # Dodaje tytuł oraz wymiary głównego okna (szerokość, wysokość)
-    root.title("=== Weather ===")
-    root.geometry("300x200")
-
-    # Tworzymy widget label podając nadrzędny element oraz zawartość
-    label = tkinter.Label(root, text="Enter city: ")
-    # Dodaje element do okna
-    label.pack(pady=10)
-
-    entry = tkinter.Entry(root)
-    entry.pack(pady=10)
-
-
-    button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{service.get_weather(entry.get())}"))
-    button.pack(pady=10)
-
-    label_result = tkinter.Label(root)
-    label_result.pack(pady=10)
-
-    button_quit = tkinter.Button(root, text="Close", command=root.quit)
-    button_quit.pack()
-
-    # Uruchamia pętlę zdarzeń
-    root.mainloop()
+    ui = UI()
+    ui.create(service)
 
 if __name__ == "__main__":
     main()
