@@ -1,12 +1,11 @@
-import tkinter as tk
+import math
 
-class Calculator:
-    def __init__(self, master):
-        self.master = master
-        master.title("Calculator") # Window title
-        master.geometry("320x450") # Increased height to accommodate parentheses and new operations
-        master.resizable(False, False)
-        master.configure(bg="#2c2c2c")
+def safe_eval(expression):
+    """Safely evaluate a mathematical expression."""
+    # Można dodać bardziej zaawansowany parser zamiast eval
+    allowed_names = {k: v for k, v in math.__dict__.items() if not k.startswith("__")}
+    return eval(expression, {"__builtins__": {}}, allowed_names)
 
-        self.expression = ""
-        self.input_text = tk.StringVar()
+def is_operator(char):
+    """Check if a character is a mathematical operator."""
+    return char in "+-*/.**"

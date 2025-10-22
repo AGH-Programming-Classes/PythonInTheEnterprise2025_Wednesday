@@ -1,11 +1,10 @@
-from utils import *
-from example_module import *
-from tkinter import *
+import tkinter as tk
+from calculator import Calculator
 
 def main():
-    master = Tk()
-    calc = Calculator(master)
-    master.mainloop()
+    root = tk.Tk()
+    app = Calculator(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
