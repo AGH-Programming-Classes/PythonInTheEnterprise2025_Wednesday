@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 import math
+from utils import safe_eval, is_operator
+from example_module import log_calculation
 
 class Calculator:
   def __init__(self, master):
