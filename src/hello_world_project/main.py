@@ -1,54 +1,59 @@
 import requests
 import tkinter
 
-def get_coordinates(city_name):
-    url = "https://nominatim.openstreetmap.org/search" #uzywamy darmowego geokodera co zamienia nazwe miasta na jego koordynaty
-    
-    params = {
-        "q": city_name,
-        "format": "json" #format w ktorym chcemy uzyskac dane
-    }
 
-    try:
-        response = requests.get(url, params = params,headers={"User-Agent":"WeatherApp"}) #url, parametry, oraz naglowek (kto wysyla zadanie)
-        data = response.json() #data to lista słowników w formacie json
 
-        lat = float(data[0]["lat"]) #konwerujemy dlugosc i szerokosc miasta na floata z pierwszego wyniku zwroconego w data
-        lon = float(data[0]["lon"])
+class WeatherService:
 
-        return lat, lon
-    
-    except requests.RequestException:
-        return None
+    def get_weather(self, city_name):
+        coordinates = self._get_coordinates(city_name)
+        lat,lon = coordinates
+        return self._get_temperature(lat, lon, city_name)
 
-def weather(city_name):
-    if not city_name:
-        return "Podaj miasto!"
+    def _get_coordinates(self, city_name):
+        url = "https://nominatim.openstreetmap.org/search" #uzywamy darmowego geokodera co zamienia nazwe miasta na jego koordynaty
+        
+        params = {
+            "q": city_name,
+            "format": "json" #format w ktorym chcemy uzyskac dane
+        }
 
-    coordinates = get_coordinates(city_name)
+        try:
+            response = requests.get(url, params = params,headers={"User-Agent":"WeatherApp"}) #url, parametry, oraz naglowek (kto wysyla zadanie)
+            data = response.json() #data to lista słowników w formacie json
 
-    lat, lon = coordinates
+            lat = float(data[0]["lat"]) #konwerujemy dlugosc i szerokosc miasta na floata z pierwszego wyniku zwroconego w data
+            lon = float(data[0]["lon"])
 
-    url = "https://api.open-meteo.com/v1/forecast"
+            return lat, lon
+        
+        except requests.RequestException:
+            return None
 
-    params = {
-        "latitude": lat,
-        "longitude":lon,
-        "current_weather": True #chcemy aktualna pogode wiec ustawiamy ja na true
-    }
+    def _get_temperature(self, lat, lon, city_name):
+        if not city_name:
+            return "Podaj miasto!"
 
-    try:
-        response = requests.get(url,params=params)
-        data = response.json()
-        temp = data["current_weather"]["temperature"]
-        return f"W {city_name} jest {temp} C."
-    
-    except requests.RequestException:
-        return f"Blad polaczenia"
+        url = "https://api.open-meteo.com/v1/forecast"
+
+        params = {
+            "latitude": lat,
+            "longitude":lon,
+            "current_weather": True #chcemy aktualna pogode wiec ustawiamy ja na true
+        }
+
+        try:
+            response = requests.get(url,params=params)
+            data = response.json()
+            temp = data["current_weather"]["temperature"]
+            return f"W {city_name} jest {temp} C."
+        
+        except requests.RequestException:
+            return f"Blad polaczenia"
 
 
 def main():
-
+    service = WeatherService()
     # Tworzy główne okno aplikacji
     root = tkinter.Tk()
 
@@ -65,7 +70,7 @@ def main():
     entry.pack(pady=10)
 
 
-    button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{weather(entry.get())}"))
+    button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{service.get_weather(entry.get())}"))
     button.pack(pady=10)
 
     label_result = tkinter.Label(root)
