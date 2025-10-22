@@ -4,6 +4,10 @@ import math
 from utils import safe_eval, is_operator
 from example_module import log_calculation
 
+class Observer:
+  def update(self, data):
+    return
+
 class Calculator:
   def __init__(self, master):
     self.master = master
@@ -17,6 +21,16 @@ class Calculator:
 
     self.create_widgets()
     self.bind_keys()
+
+    self.observers = []
+    
+  def add_obs(self, obs)
+    self.obeservers.append(obs)
+  
+  def send(self)
+    for o in self.observers:
+      o.update()
+  
   def create_widgets(self):
     input_frame = tk.Frame(self.master, bd=0, bg="#2c2c2c")
     input_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=10)
