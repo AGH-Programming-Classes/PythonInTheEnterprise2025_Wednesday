@@ -11,7 +11,7 @@ class TimerDecorator:
         return result
 
 
-class SingletonMeta(type):
+class Singleton(type):
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -20,7 +20,7 @@ class SingletonMeta(type):
             cls._instances[cls] = instance
         return cls._instances[cls]
 
-class Calculator(metaclass=SingletonMeta):
+class Calculator(metaclass=Singleton):
     def __init__(self):
         pass
     @TimerDecorator
