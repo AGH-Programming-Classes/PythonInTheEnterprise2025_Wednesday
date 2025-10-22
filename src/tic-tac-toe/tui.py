@@ -48,16 +48,16 @@ def main(stdscr):
         if char == ord("q"):
             break
         elif char == curses.KEY_RIGHT:
-            if cursor_x + cursor_step_x < 15:
+            if cursor_x + cursor_step_x < cursor_max_x:
                 cursor_x += cursor_step_x
         elif char == curses.KEY_LEFT: 
-            if cursor_x - cursor_step_x > 0:
+            if cursor_x - cursor_step_x > cursor_min_x:
                 cursor_x -= cursor_step_x
         elif char == curses.KEY_UP: 
-            if cursor_y - cursor_step_y > 0:
+            if cursor_y - cursor_step_y > cursor_min_y:
                 cursor_y -= cursor_step_y
         elif char == curses.KEY_DOWN:
-            if cursor_y + cursor_step_y < 10:
+            if cursor_y + cursor_step_y < cursor_max_y:
                 cursor_y += cursor_step_y
         
         win.addstr(cursor_y, cursor_x, "X")
