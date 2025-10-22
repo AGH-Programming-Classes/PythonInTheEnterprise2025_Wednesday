@@ -5,8 +5,20 @@ from utils import safe_eval, is_operator
 from example_module import log_calculation
 
 class Observer:
+  def __init__(self):
+    self.subscribers = []
+  def subscribe(self, fn):
+    if fn not in self.subscribers:
+      self.subscribers.append(fn)
+  def unsubscribe(self, fn):
+    self.subscribers.remove(fn)
+  def emit(self, event):
+    for fn in self.subscribers:
+      fn(event)
+  
   def update(self, data):
     return
+  
 
 class Calculator:
   def __init__(self, master):
@@ -24,10 +36,10 @@ class Calculator:
 
     self.observers = []
     
-  def add_obs(self, obs)
+  def add_obs(self, obs):
     self.obeservers.append(obs)
   
-  def send(self)
+  def send(self):
     for o in self.observers:
       o.update()
   
