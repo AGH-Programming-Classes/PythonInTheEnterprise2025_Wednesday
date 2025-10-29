@@ -2,89 +2,71 @@ import requests
 import tkinter
 
 
-# Facade
+# Adapters 
+class GeocodingAdapter:
+    def get_coordinates(self, city_name):
+        url = "https://nominatim.openstreetmap.org/search"
+        params = {"q": city_name, "format": "json"}
+        response = requests.get(url, params=params, headers={"User-Agent": "WeatherApp"})
+        data = response.json()
+        return float(data[0]["lat"]), float(data[0]["lon"])
+
+class WeatherAPIAdapter:
+    def get_temperature(self, lat, lon):
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {"latitude": lat, "longitude": lon, "current_weather": True}
+        response = requests.get(url, params=params)
+        data = response.json()
+        return data["current_weather"]["temperature"]
+    
+#Facade using adapters
 class WeatherService:
+    def __init__(self):
+        self.geo = GeocodingAdapter()
+        self.weather = WeatherAPIAdapter()
 
     def get_weather(self, city_name):
-        coordinates = self._get_coordinates(city_name)
-        lat,lon = coordinates
-        return self._get_temperature(lat, lon, city_name)
+        lat, lon = self.geo.get_coordinates(city_name)
+        temp = self.weather.get_temperature(lat, lon)
+        return f"W {city_name} jest {temp} °C."
 
-    def _get_coordinates(self, city_name):
-        url = "https://nominatim.openstreetmap.org/search" #uzywamy darmowego geokodera co zamienia nazwe miasta na jego koordynaty
-        
-        params = {
-            "q": city_name,
-            "format": "json" #format w ktorym chcemy uzyskac dane
-        }
 
-        try:
-            response = requests.get(url, params = params,headers={"User-Agent":"WeatherApp"}) #url, parametry, oraz naglowek (kto wysyla zadanie)
-            data = response.json() #data to lista słowników w formacie json
-
-            lat = float(data[0]["lat"]) #konwerujemy dlugosc i szerokosc miasta na floata z pierwszego wyniku zwroconego w data
-            lon = float(data[0]["lon"])
-
-            return lat, lon
-        
-        except requests.RequestException:
-            return None
-
-    def _get_temperature(self, lat, lon, city_name):
-        if not city_name:
-            return "Podaj miasto!"
-
-        url = "https://api.open-meteo.com/v1/forecast"
-
-        params = {
-            "latitude": lat,
-            "longitude":lon,
-            "current_weather": True #chcemy aktualna pogode wiec ustawiamy ja na true
-        }
-
-        try:
-            response = requests.get(url,params=params)
-            data = response.json()
-            temp = data["current_weather"]["temperature"]
-            return f"W {city_name} jest {temp} C."
-        
-        except requests.RequestException:
-            return f"Blad polaczenia"
     
 # Facade and singleton  
-class UI(object):
+class UI:
+    _instance = None
+    def __init__(self):
+        self.root = tkinter.Tk()
     def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(UI, cls).__new__(cls)
-        return cls.instance
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
     def create(self, weatherService):
-        # Tworzy główne okno aplikacji
-        root = tkinter.Tk()
 
         # Dodaje tytuł oraz wymiary głównego okna (szerokość, wysokość)
-        root.title("=== Weather ===")
-        root.geometry("300x200")
+        self.root.title("=== Weather ===")
+        self.root.geometry("300x200")
 
         # Tworzymy widget label podając nadrzędny element oraz zawartość
-        label = tkinter.Label(root, text="Enter city: ")
+        label = tkinter.Label(self.root, text="Enter city: ")
         # Dodaje element do okna
         label.pack(pady=10)
 
-        entry = tkinter.Entry(root)
+        entry = tkinter.Entry(self.root)
         entry.pack(pady=10)
 
 
-        button = tkinter.Button(root, text="Search", command=lambda:label_result.config(text=f"{weatherService.get_weather(entry.get())}"))
+        button = tkinter.Button(self.root, text="Search", command=lambda:label_result.config(text=f"{weatherService.get_weather(entry.get())}"))
         button.pack(pady=10)
 
-        label_result = tkinter.Label(root)
+        label_result = tkinter.Label(self.root)
         label_result.pack(pady=10)
 
-        button_quit = tkinter.Button(root, text="Close", command=root.quit)
+        button_quit = tkinter.Button(self.root, text="Close", command=self.root.quit)
         button_quit.pack()
 
         # Uruchamia pętlę zdarzeń
-        root.mainloop()
+        self.root.mainloop()
 
 
 
