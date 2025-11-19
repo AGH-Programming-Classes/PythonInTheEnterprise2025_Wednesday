@@ -21,12 +21,12 @@
 requires = ["setuptools", "wheel"]
 
 [project]
-name = "hello_world_project"
+name = "tic-tac-toe"
 version = "0.1.0"
-description = "Hello World project."
-authors = [{name = "Your Name"}]
+description = "Tic-Tac-Toe project."
+authors = [{ name = "Kacper Wojtowicz", "Gracjan Adamus" }]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 # Runtime dependencies — packages your project needs to run.
 # For example:
