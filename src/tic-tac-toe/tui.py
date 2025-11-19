@@ -1,4 +1,5 @@
 import curses
+from game_logger import log
 
 class TUI:
     def __init__(self, game_state):
@@ -34,6 +35,7 @@ class TUI:
 
         self.running = True
 
+    @log
     def clear_window(self):
         self.win = curses.newwin(self.height, self.width, self.begin_y, self.begin_x)
         self.win.clear()
